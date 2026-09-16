@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>血液透析衛教手冊</title>
+<style>
+:root{--teal:#0d7377;--teal2:#e1f1f0;--line:#d4e4e4;--text:#16232a;--muted:#7a9a9a;--fs:17px
+;--tip-bg:#e1f1f0;--tip-line:#9fcac8;--ok-bg:#e6fffa;--ok-line:#8fcf9f;--warn-bg:#fff4e0;--warn-line:#f0c26a;--danger-bg:#fdeaea;--danger-line:#e88f8f}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;background:#f0f5f5;color:var(--text);font-size:var(--fs);line-height:1.65}
+.wrap{max-width:760px;margin:auto;padding:14px 14px 60px}
+.navtabs{display:flex;gap:8px;margin-bottom:10px}
+.navtabs a{flex:1;text-align:center;padding:9px 8px;border-radius:12px;background:#fff;border:1px solid var(--line);color:var(--muted);text-decoration:none;font-weight:700;font-size:13px}
+.navtabs a.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+.header{background:var(--teal);color:#fff;border-radius:18px;padding:18px}
+.header h1{margin:0;font-size:1.45em}
+.header .sub{opacity:.92;margin-top:6px;font-size:.85em}
+.toolbar{position:sticky;top:0;z-index:5;background:#f0f5f5;padding:10px 0 6px}
+.searchbox{width:100%;font-size:1em;padding:12px 14px;border:1px solid #cbd5e1;border-radius:14px;background:#fff}
+.fontctl{display:flex;gap:6px;justify-content:flex-end;margin-top:8px}
+.fontctl button{border:1px solid var(--line);background:#fff;color:var(--text);border-radius:10px;padding:6px 12px;font-weight:700}
+.topicnav{display:flex;gap:8px;overflow-x:auto;padding:10px 0 2px;scrollbar-width:none}
+.topicnav::-webkit-scrollbar{display:none}
+.topicnav a{white-space:nowrap;background:#fff;border:1px solid var(--line);color:var(--teal);text-decoration:none;padding:8px 13px;border-radius:999px;font-size:.85em;font-weight:700}
+section.topic{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 16px 6px;margin:14px 0;scroll-margin-top:132px}
+section.topic h2{margin:0 0 10px;font-size:1.2em;color:var(--teal);display:flex;align-items:center;gap:8px}
+section.topic h3{font-size:1.02em;margin:16px 0 6px;color:var(--text)}
+section.topic ul{margin:6px 0 12px;padding-left:1.3em}
+section.topic li{margin:5px 0}
+.callout{border-radius:12px;padding:11px 13px;margin:10px 0 14px;font-size:.95em}
+.callout b{display:block;margin-bottom:3px}
+.tip{background:var(--tip-bg);border:1px solid var(--tip-line)}
+.ok{background:var(--ok-bg);border:1px solid var(--ok-line)}
+.warn{background:var(--warn-bg);border:1px solid var(--warn-line)}
+.danger{background:var(--danger-bg);border:1px solid var(--danger-line)}
+.qa{margin:12px 0;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.qa:last-child{border-bottom:0}
+.qa .q{font-weight:800;color:var(--teal)}
+.qa .a{margin-top:5px}
+.hidden{display:none !important}
+.nomatch{text-align:center;color:var(--muted);padding:30px 10px}
+.backtop{position:fixed;right:16px;bottom:18px;background:var(--teal);color:#fff;border-radius:50%;width:48px;height:48px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:20px;box-shadow:0 4px 10px rgba(0,0,0,.2)}
+.footer{margin:26px 0 10px;font-size:.8em;color:var(--muted);text-align:center;line-height:1.7}
+mark{background:#fff3a3;padding:0 2px;border-radius:3px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="navtabs"><a href="index.html">🏠 首頁</a><a class="active" href="education.html">📘 血液透析衛教</a><a href="lab-values.html">🧪 數值速查</a></div>
+<div class="header">
+<h1>📘 血液透析衛教手冊</h1>
+<div class="sub">隨身衛教工具｜衛教病人時開啟手機即可使用｜點主題快速跳轉，或直接搜尋關鍵字</div>
+</div>
+
+<div class="toolbar">
+<input class="searchbox" id="search" placeholder="🔍 搜尋衛教主題，例如：鉀、廔管、抽筋、體重…" oninput="doSearch()">
+<div class="fontctl"><button onclick="changeFont(-1)">A－</button><button onclick="changeFont(0)">A</button><button onclick="changeFont(1)">A＋</button></div>
+<div class="topicnav" id="topicNav">
+<a href="#s1">🩺 認識透析</a><a href="#s2">💉 血管通路</a><a href="#s3">🍽️ 飲食水分</a><a href="#s4">💊 用藥指導</a><a href="#s5">⚠️ 透析中後注意</a><a href="#s6">🧴 皮膚照顧</a><a href="#s7">🚶 生活運動</a><a href="#s8">🚨 緊急狀況</a><a href="#s9">💬 心理與資源</a><a href="#s10">❓ 常見Q&amp;A</a>
+</div>
+</div>
+
+<div id="content">
+
+<section class="topic" id="s1" data-title="認識血液透析 透析原理 頻率 洗腎">
+<h2>🩺 1. 認識血液透析</h2>
+<h3>什麼是血液透析</h3>
+<ul>
+<li>當腎臟功能嚴重衰退，無法正常排除體內多餘水分、代謝廢物與電解質時，需要藉由「透析」（俗稱洗腎）來代替腎臟工作。</li>
+<li>血液透析是把血液引流到體外，經過透析機與透析器（人工腎臟）過濾後，再把乾淨的血液送回身體。</li>
+</ul>
+<h3>透析怎麼進行</h3>
+<ul>
+<li>治療時血液會從您的血管通路（廔管／人工血管／導管）流出，經過透析器過濾，再流回體內，全程由機器監控速度與安全。</li>
+<li>透析液會把血液中多餘的水分、鉀、磷、尿毒素等移除。</li>
+</ul>
+<h3>治療頻率與時間</h3>
+<div class="callout tip"><b>一般原則</b>大多數病人每週規律透析 3 次，每次約 4 小時，實際頻率與時間由醫師依身體狀況調整，請勿自行減少或延後治療。</div>
+<h3>血液透析與腹膜透析的差別（簡介）</h3>
+<ul>
+<li>血液透析：需固定到院，由機器體外過濾血液。</li>
+<li>腹膜透析：利用自己的腹膜當過濾膜，可在家自行操作，治療方式不同，若有興趣可與醫療團隊討論是否適合。</li>
+</ul>
+</section>
+
+<section class="topic" id="s2" data-title="血管通路照顧 廔管 AVF 人工血管 AVG 導管 CVC 震顫 雜音 止血">
+<h2>💉 2. 血管通路照顧</h2>
+<p>血管通路是透析病人的「生命線」，日常照顧非常重要。</p>
+
+<h3>動靜脈廔管（AVF）／人工血管（AVG）</h3>
+<ul>
+<li><b>每天自我檢查</b>：用手輕摸通路處，應感覺到「嗡嗡」震顫感；也可用耳朵貼近聽是否有規律的「咻咻」雜音。若感覺變弱、消失，或雜音變成單純的「跳動」聲，需盡快回院檢查。</li>
+<li>觀察穿刺處有無紅、腫、熱、痛、滲液或異常凸起（血管瘤）。</li>
+<li>保持該側皮膚清潔乾燥。</li>
+</ul>
+<div class="callout warn"><b>該側手臂要避免</b>
+<ul style="margin:4px 0 0">
+<li>量血壓、抽血、打點滴／打針</li>
+<li>提重物、過度用力</li>
+<li>戴手錶、手環或穿過緊的衣物、睡覺時壓在該側手臂</li>
+</ul>
+</div>
+<h3>透析後穿刺點止血</h3>
+<ul>
+<li>用手指輕壓穿刺處約 15～20 分鐘，力道以「摸得到震顫、但不再滲血」為原則，勿用力揉搓。</li>
+<li>止血繃帶勿包紮過緊或留置過久（一般建議透析後數小時內移除），以免阻斷血流。</li>
+<li>透析當天淋浴無妨，但應避免搓洗穿刺處；24 小時內避免泡澡、游泳等長時間浸泡傷口的活動。</li>
+</ul>
+
+<h3>中央靜脈導管（CVC）</h3>
+<ul>
+<li>保持導管出口處敷料乾燥清潔，如有潮濕、鬆脫、污損，應盡快回院更換，切勿自行撕除。</li>
+<li>淋浴時需將導管及敷料妥善防水包覆，禁止泡澡、游泳。</li>
+<li>絕對不可自行拉扯、牽動或拔除導管。</li>
+</ul>
+
+<div class="callout danger"><b>出現以下情形請立即回院或就醫</b>
+<ul style="margin:4px 0 0">
+<li>通路處紅腫熱痛化膿、合併發燒畏寒</li>
+<li>震顫或雜音消失（可能阻塞）</li>
+<li>止血超過 30 分鐘仍持續出血</li>
+</ul>
+</div>
+</section>
+
+<section class="topic" id="s3" data-title="飲食與水分控制 蛋白質 鉀 磷 鈉 乾體重 水分限制">
+<h2>🍽️ 3. 飲食與水分控制</h2>
+
+<h3>蛋白質：要吃夠，不要吃太少</h3>
+<ul>
+<li>透析過程會流失一些蛋白質，且傷口癒合、抵抗力都需要蛋白質，因此建議攝取足量「優質蛋白」，如魚肉、瘦肉、蛋、雞肉。</li>
+<li>不需要像一般慢性腎臟病（未透析）病人那樣嚴格限制蛋白質。</li>
+</ul>
+
+<h3>鉀離子：太高會影響心臟</h3>
+<div class="callout warn"><b>高血鉀很危險</b>可能導致心律不整甚至心跳停止，且初期常「沒有明顯感覺」。</div>
+<ul>
+<li>少吃：香蕉、奇異果、芭樂、番茄、柳丁、哈密瓜、地瓜、南瓜、竹筍、菇類、堅果、低鈉鹽、咖啡、精力湯、蔬果汁。</li>
+<li>蔬菜可先切小、汆燙後「換水」再烹煮，並倒掉湯汁，可減少部分鉀離子。</li>
+<li>避免生菜沙拉、大量喝湯與蔬果汁。</li>
+</ul>
+
+<h3>磷離子：控制皮膚癢與骨頭健康</h3>
+<ul>
+<li>少吃：內臟、加工食品（火鍋料、香腸、罐頭）、汽水可樂、堅果種子、全穀雜糧、乳製品不過量。</li>
+<li>磷結合劑務必配合正餐或點心「同時服用」，詳見〈用藥指導〉。</li>
+</ul>
+
+<h3>鈉（鹽分）：控制口渴與血壓</h3>
+<ul>
+<li>減少鹽、醬油、味精、加工食品、醃漬物、罐頭，可降低口渴感，幫助控制水分攝取與血壓。</li>
+</ul>
+
+<h3>水分與「乾體重」控制</h3>
+<div class="callout tip"><b>什麼是乾體重</b>乾體重是指身體沒有多餘水分堆積時的體重，由醫療團隊評估設定，是透析目標脫水量的依據。</div>
+<ul>
+<li>兩次透析間體重增加，建議控制在乾體重的 3～5％ 以內（依醫囑），體重增加過多會增加心臟負擔、透析中不適與抽筋風險。</li>
+<li>口渴時可用：含冰塊、嚼口香糖、含檸檬片或酸梅刺激唾液分泌、以漱口代替喝水，減少一口氣喝下大量水分。</li>
+<li>注意「隱藏的水分」：粥、湯麵、冰品、水果也含水分，需一併計算。</li>
+</ul>
+</section>
+
+<section class="topic" id="s4" data-title="用藥指導 磷結合劑 紅血球生成素 鐵劑 降壓藥 止痛藥">
+<h2>💊 4. 用藥指導</h2>
+<ul>
+<li><b>磷結合劑</b>：必須與「正餐或點心一起吃」才能發揮結合食物中磷的效果，飯前空腹吃或飯後很久才吃幾乎無效。</li>
+<li><b>紅血球生成素／鐵劑</b>：用於治療腎性貧血，依醫囑於透析時注射或口服補充，切勿自行停用。</li>
+<li><b>降血壓藥</b>：部分藥物透析當天是否服用需依醫囑（例如有些藥物會於透析前暫停），請主動詢問您的醫療團隊。</li>
+<li><b>維生素／鈣片</b>：依醫囑補充，勿自行加減劑量。</li>
+</ul>
+<div class="callout danger"><b>特別提醒</b>
+<ul style="margin:4px 0 0">
+<li>不可自行服用成藥、中草藥、偏方或來路不明的補品，可能加重腎臟負擔或與現有藥物產生交互作用。</li>
+<li>普拿疼類以外的消炎止痛藥（NSAID）可能傷腎，服用前務必先詢問醫療團隊。</li>
+<li>至其他科別或藥局就醫時，請主動告知「我是透析病人」，避免使用不適合的藥物或顯影劑。</li>
+</ul>
+</div>
+</section>
+
+<section class="topic" id="s5" data-title="透析中透析後注意事項 低血壓 抽筋 頭暈 副作用 止血">
+<h2>⚠️ 5. 透析中／透析後注意事項</h2>
+<h3>透析過程中常見不適</h3>
+<ul>
+<li>頭暈、冒冷汗、噁心（可能為低血壓）</li>
+<li>肌肉抽筋（常見於小腿）</li>
+<li>噁心嘔吐、胸悶、心悸、皮膚癢</li>
+</ul>
+<div class="callout warn"><b>有任何不適，請立即告知護理人員</b>不要忍耐或自行調整機器，及早處理可避免症狀惡化。</div>
+<h3>透析後回家注意事項</h3>
+<ul>
+<li>透析後可能感到疲倦或姿勢性低血壓（站起來會頭暈），起身時建議「躺→坐→站」分階段慢慢來，避免跌倒。</li>
+<li>穿刺處當日避免提重物、劇烈活動、泡澡浸泡。</li>
+<li>若返家後出現持續出血、發燒、通路處異常紅腫熱痛，應儘速回院或就醫，勿等到下次治療。</li>
+</ul>
+</section>
+
+<section class="topic" id="s6" data-title="皮膚照顧 搔癢 保濕">
+<h2>🧴 6. 皮膚照顧與搔癢</h2>
+<ul>
+<li>透析病人常見皮膚乾燥搔癢，與磷離子偏高、皮膚水分不足有關。</li>
+<li>建議加強保濕：洗澡水勿過熱、縮短洗澡時間、使用溫和無香精沐浴用品，洗後盡快擦上保濕乳液。</li>
+<li>避免用力抓癢造成皮膚破損感染，可改以輕拍或冰敷緩解。</li>
+<li>積極配合飲食控制磷離子與按時服用磷結合劑，有助改善搔癢症狀。</li>
+</ul>
+</section>
+
+<section class="topic" id="s7" data-title="運動 生活型態 旅遊 疫苗 戒菸">
+<h2>🚶 7. 運動與生活型態</h2>
+<ul>
+<li>鼓勵規律溫和運動，如散步、伸展操、簡單肌力訓練，有助心肺功能與體力維持；避免讓血管通路那側手臂過度用力或提重物。</li>
+<li><b>外出旅遊</b>：安排長途旅行前，請提早（建議 2～4 週前）聯絡目的地附近的透析中心預約「異地透析」，並攜帶病歷摘要與用藥清單。</li>
+<li><b>疫苗接種</b>：建議依醫囑接種流感疫苗、肺炎鏈球菌疫苗、B型肝炎疫苗等。</li>
+<li>建議戒菸、避免過量飲酒，維持規律作息。</li>
+</ul>
+</section>
+
+<section class="topic" id="s8" data-title="緊急狀況 大出血 阻塞 高血鉀 胸痛 呼吸困難 立即就醫">
+<h2>🚨 8. 緊急狀況辨識與處理</h2>
+<div class="callout danger"><b>出現以下狀況，請立即處理並就醫／打119</b>
+<ul style="margin:4px 0 0">
+<li><b>血管通路大出血止不住</b>：立刻直接加壓止血，同時盡速送醫，勿等待觀察。</li>
+<li><b>廔管／人工血管摸不到震顫、聽不到雜音</b>：可能是阻塞，需儘速回院處理，時間拖越久搶救成功率越低。</li>
+<li><b>高血鉀症狀</b>：全身無力、手腳麻木、心悸、心律不整，應立即就醫。</li>
+<li><b>胸悶胸痛、呼吸困難、意識改變</b>：立即就醫或撥打 119。</li>
+<li><b>發燒合併畏寒發抖</b>（尤其有導管者，可能為感染或菌血症）：應儘速回診，不可拖延至下次治療日。</li>
+</ul>
+</div>
+<div class="callout tip"><b>建議隨身準備</b>寫有「透析病人」、就診醫院、透析中心聯絡電話、緊急聯絡人的小卡或手機備忘，方便緊急時提供資訊。</div>
+</section>
+
+<section class="topic" id="s9" data-title="心理調適 社會資源 重大傷病卡 身心障礙手冊 長照 病友團體">
+<h2>💬 9. 心理調適與社會資源</h2>
+<ul>
+<li>長期治療可能帶來情緒壓力、焦慮或低落，這是常見且可以被理解的反應，鼓勵與家人、醫療團隊或病友分享感受，必要時可尋求心理諮商資源。</li>
+<li>可與病友團體交流經驗，減少孤單感，互相鼓勵。</li>
+</ul>
+<h3>台灣常見可運用的社會資源</h3>
+<ul>
+<li><b>重大傷病證明</b>：可向健保署申請，透析相關醫療費用可獲健保給付減免。</li>
+<li><b>身心障礙證明</b>：依個人狀況評估申請，可享相關福利與補助。</li>
+<li><b>長期照顧 2.0（長照）</b>：如有生活照顧需求，可撥打 1966 長照專線諮詢。</li>
+<li>各地腎臟病病友協會、社工室個案管理服務，可協助轉介經濟補助、交通接送等資源。</li>
+</ul>
+</section>
+
+<section class="topic" id="s10" data-title="常見問答 Q&A 喝水 出國 廔管 疲累 換腎">
+<h2>❓ 10. 常見 Q&amp;A</h2>
+
+<div class="qa"><div class="q">Q：洗腎會不會一輩子都要洗？</div><div class="a">多數慢性腎衰竭病人需長期規律透析；若符合條件並有意願，可與醫療團隊討論評估腎臟移植的可能性。</div></div>
+
+<div class="qa"><div class="q">Q：透析病人是不是要多喝水排毒？</div><div class="a">相反！透析病人腎臟已無法排水，喝太多水會造成體內水分堆積，增加心臟負擔與透析中不適，應依醫囑限制水分攝取，而非多喝水。</div></div>
+
+<div class="qa"><div class="q">Q：血管通路那隻手可以量血壓、打針、提重物嗎？</div><div class="a">不可以。該側手臂應避免量血壓、抽血、打點滴及提重物，以保護通路暢通。</div></div>
+
+<div class="qa"><div class="q">Q：為什麼透析後總是特別累？</div><div class="a">透析過程中身體移除大量水分與代謝物，加上血壓變化，容易感到疲倦，屬常見現象，建議透析後充分休息，若疲憊感嚴重或持續，請告知醫療團隊。</div></div>
+
+<div class="qa"><div class="q">Q：可以出國旅遊嗎？</div><div class="a">可以，但需提前安排「異地透析」，建議至少提前 2～4 週聯絡當地透析中心，並攜帶病歷摘要與用藥清單。</div></div>
+
+<div class="qa"><div class="q">Q：摸廔管摸不到跳動怎麼辦？</div><div class="a">這可能是阻塞的警訊，請立即回院檢查，不要等到下次排定的治療日期，時間越早處理，搶救成功機會越高。</div></div>
+
+<div class="qa"><div class="q">Q：可以吃水果嗎？</div><div class="a">可以吃，但需注意份量並避開高鉀水果（如香蕉、奇異果、芭樂、哈密瓜），建議諮詢營養師安排適合的水果種類與份量。</div></div>
+
+</section>
+
+</div>
+<div id="noResult" class="nomatch hidden">找不到符合的衛教內容，請換個關鍵字試試。</div>
+
+<div class="footer">本手冊為一般衛教資訊，僅供衛教說明參考，實際治療與飲食用藥仍請依醫療團隊個別評估與醫囑為準。</div>
+</div>
+
+<a class="backtop" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false">↑</a>
+
+<script>
+function changeFont(dir){
+  const root=document.documentElement;
+  let cur=parseFloat(getComputedStyle(root).getPropertyValue('--fs'))||17;
+  if(dir===0){cur=17}else{cur=Math.min(22,Math.max(14,cur+dir))}
+  root.style.setProperty('--fs',cur+'px');
+  try{localStorage.setItem('eduFontSize',cur)}catch(e){}
+}
+try{const saved=localStorage.getItem('eduFontSize');if(saved)document.documentElement.style.setProperty('--fs',saved+'px')}catch(e){}
+
+function doSearch(){
+  const q=document.getElementById('search').value.trim();
+  const sections=document.querySelectorAll('section.topic');
+  let any=false;
+  sections.forEach(sec=>{
+    const hay=(sec.dataset.title+' '+sec.textContent).toLowerCase();
+    const match=!q||hay.includes(q.toLowerCase());
+    sec.classList.toggle('hidden',!match);
+    if(match)any=true;
+  });
+  document.getElementById('noResult').classList.toggle('hidden',any || !q);
+}
+</script>
+</body>
+</html>

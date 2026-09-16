@@ -1,0 +1,504 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>透析數值速查</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg:#F5F8F8;
+    --surface:#FFFFFF;
+    --surface-2:#EEF4F4;
+    --ink:#16232A;
+    --ink-soft:#526670;
+    --ink-faint:#8599A1;
+    --accent:#0D7A84;
+    --accent-ink:#0A5C64;
+    --accent-soft:#E1F1F0;
+    --line:#DCE6E7;
+    --good:#2E8B57;
+    --good-soft:#E3F3E9;
+    --caution:#9C6B0B;
+    --caution-soft:#FAF0DA;
+    --shadow:0 1px 2px rgba(18,38,43,.07), 0 6px 20px rgba(18,38,43,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0A1416;
+      --surface:#111D20;
+      --surface-2:#16262A;
+      --ink:#E8F0F0;
+      --ink-soft:#9FB5B9;
+      --ink-faint:#69838A;
+      --accent:#4FCFC7;
+      --accent-ink:#8CE0DA;
+      --accent-soft:#153029;
+      --line:#213539;
+      --good:#63CB8F;
+      --good-soft:#122A20;
+      --caution:#E3AC50;
+      --caution-soft:#31260F;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0A1416;
+    --surface:#111D20;
+    --surface-2:#16262A;
+    --ink:#E8F0F0;
+    --ink-soft:#9FB5B9;
+    --ink-faint:#69838A;
+    --accent:#4FCFC7;
+    --accent-ink:#8CE0DA;
+    --accent-soft:#153029;
+    --line:#213539;
+    --good:#63CB8F;
+    --good-soft:#122A20;
+    --caution:#E3AC50;
+    --caution-soft:#31260F;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:840px;
+    margin:0 auto;
+    padding:16px 20px 64px;
+  }
+  .num{
+    font-family:'JetBrains Mono','Roboto Mono',ui-monospace,monospace;
+    font-variant-numeric:tabular-nums;
+  }
+
+  /* nav tabs */
+  .navtabs{display:flex;gap:8px;margin-bottom:14px}
+  .navtabs a{flex:1;text-align:center;padding:10px 8px;border-radius:12px;background:var(--surface);border:1px solid var(--line);color:var(--ink-soft);text-decoration:none;font-weight:700;font-size:13px}
+  .navtabs a.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+  /* header */
+  header.page{
+    padding-block:6px 22px;
+  }
+  .eyebrow{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:12.5px;
+    letter-spacing:.08em;
+    color:var(--accent-ink);
+    font-weight:600;
+    text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  .eyebrow .dot{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--accent);
+    flex:none;
+  }
+  h1{
+    font-family:'Noto Serif TC',serif;
+    font-weight:700;
+    font-size:clamp(26px,5vw,34px);
+    margin:0 0 8px;
+    text-wrap:balance;
+    letter-spacing:.01em;
+  }
+  .sub{
+    color:var(--ink-soft);
+    font-size:14.5px;
+    max-width:60ch;
+    margin:0 0 16px;
+  }
+  .notice{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    background:var(--caution-soft);
+    border:1px solid color-mix(in srgb, var(--caution) 35%, transparent);
+    color:var(--ink);
+    border-radius:10px;
+    padding:12px 14px;
+    font-size:13.5px;
+    line-height:1.55;
+  }
+  .notice svg{flex:none;margin-top:2px;color:var(--caution);}
+  .notice b{color:var(--caution);font-weight:700;}
+
+  /* nav */
+  nav.jump{
+    position:sticky;
+    top:env(safe-area-inset-top, 0px);
+    z-index:5;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    padding:12px 0;
+    margin:18px 0 6px;
+    background:linear-gradient(var(--bg) 72%, transparent);
+  }
+  nav.jump a{
+    font-size:13px;
+    font-weight:600;
+    color:var(--ink-soft);
+    text-decoration:none;
+    background:var(--surface);
+    border:1px solid var(--line);
+    padding:7px 13px;
+    border-radius:999px;
+    white-space:nowrap;
+    transition:color .15s, border-color .15s, background .15s;
+  }
+  nav.jump a:hover, nav.jump a:focus-visible{
+    color:var(--accent-ink);
+    border-color:var(--accent);
+    background:var(--accent-soft);
+  }
+  nav.jump a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+  .filter{
+    margin:14px 0 8px;
+    position:relative;
+  }
+  .filter input{
+    width:100%;
+    font:inherit;
+    font-size:14.5px;
+    padding:11px 14px 11px 38px;
+    border-radius:10px;
+    border:1px solid var(--line);
+    background:var(--surface);
+    color:var(--ink);
+  }
+  .filter input:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
+  .filter svg{
+    position:absolute;left:12px;top:50%;transform:translateY(-50%);
+    color:var(--ink-faint);pointer-events:none;
+  }
+  .filter .count{
+    font-size:12px;color:var(--ink-faint);margin-top:6px;
+  }
+
+  /* sections */
+  section.grp{
+    margin-top:34px;
+    scroll-margin-top:56px;
+  }
+  .grp-head{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:12px;
+    padding-bottom:8px;
+    border-bottom:1px solid var(--line);
+  }
+  .grp-head .idx{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--accent);
+    background:var(--accent-soft);
+    border-radius:5px;
+    padding:2px 6px;
+    font-weight:600;
+  }
+  .grp-head h2{
+    font-family:'Noto Serif TC',serif;
+    font-size:18.5px;
+    font-weight:700;
+    margin:0;
+    text-wrap:balance;
+  }
+  .grp-head .en{
+    font-size:12px;
+    color:var(--ink-faint);
+    font-weight:500;
+  }
+
+  table.ref{
+    width:100%;
+    border-collapse:collapse;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+  }
+  table.ref thead th{
+    text-align:left;
+    font-size:11.5px;
+    font-weight:600;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    background:var(--surface-2);
+    padding:10px 14px;
+    border-bottom:1px solid var(--line);
+  }
+  table.ref tbody tr{border-top:1px solid var(--line);}
+  table.ref tbody tr:first-child{border-top:none;}
+  table.ref td{
+    padding:13px 14px;
+    font-size:14px;
+    vertical-align:top;
+  }
+  table.ref td.param{
+    font-weight:600;
+    white-space:nowrap;
+  }
+  table.ref td.param .zh{display:block;}
+  table.ref td.param .abbr{
+    display:block;
+    font-size:11.5px;
+    font-weight:500;
+    color:var(--ink-faint);
+    font-family:'JetBrains Mono',monospace;
+    margin-top:1px;
+  }
+  table.ref td.normal{color:var(--ink-soft);}
+  .pill{
+    display:inline-block;
+    font-family:'JetBrains Mono',monospace;
+    font-weight:600;
+    font-size:13.5px;
+    color:var(--accent-ink);
+    background:var(--accent-soft);
+    border-radius:7px;
+    padding:3px 9px;
+    white-space:nowrap;
+  }
+  td.note{color:var(--ink-soft);font-size:12.5px;max-width:22ch;}
+  tr.hide{display:none;}
+
+  /* mobile: stack table into rows */
+  @media (max-width:620px){
+    table.ref thead{display:none;}
+    table.ref, table.ref tbody, table.ref tr, table.ref td{display:block;width:100%;}
+    table.ref tbody tr{padding:13px 14px;border-top:1px solid var(--line);}
+    table.ref td{padding:3px 0;}
+    table.ref td.param{margin-bottom:6px;}
+    table.ref td::before{
+      content:attr(data-label);
+      display:block;
+      font-size:10.5px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--ink-faint);
+      margin-bottom:2px;
+    }
+    table.ref td.param::before{display:none;}
+    td.note{max-width:none;}
+  }
+
+  footer{
+    margin-top:44px;
+    padding-top:18px;
+    border-top:1px solid var(--line);
+    font-size:12px;
+    color:var(--ink-faint);
+    line-height:1.8;
+  }
+  footer a{color:var(--ink-faint);}
+  footer .updated{color:var(--ink-soft);font-weight:600;margin-bottom:6px;}
+
+  @media (prefers-reduced-motion: reduce){
+    nav.jump a{transition:none;}
+  }
+</style>
+
+<div class="wrap">
+  <div class="navtabs">
+    <a href="index.html">🏠 首頁</a>
+    <a href="education.html">📘 血液透析衛教</a>
+    <a class="active" href="lab-values.html">🧪 數值速查</a>
+  </div>
+
+  <header class="page">
+    <div class="eyebrow"><span class="dot"></span>洗腎室臨床快查</div>
+    <h1>透析數值速查</h1>
+    <p class="sub">血液透析病人常用檢驗項目的一般人參考值與透析目標值整理，供床邊快速核對用。</p>
+    <div class="notice">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <div><b>僅供參考，不取代醫囑。</b> 目標值整理自 KDOQI／KDIGO 國際指引，實際處置仍以院內規範、腎臟科醫囑及個別病人狀況為準；2026 年貧血指引為新版更新，請留意單位是否已同步調整流程。</div>
+    </div>
+  </header>
+
+  <nav class="jump" aria-label="跳至分類">
+    <a href="#electrolyte">電解質與酸鹼</a>
+    <a href="#mbd">骨礦物質代謝</a>
+    <a href="#anemia">貧血與鐵</a>
+    <a href="#adequacy">透析適足性</a>
+    <a href="#nutrition">營養</a>
+  </nav>
+
+  <div class="filter">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input id="q" type="text" inputmode="search" placeholder="搜尋項目，例如「鉀」或 Kt/V…" autocomplete="off">
+    <div class="count" id="qcount"></div>
+  </div>
+
+  <section class="grp" id="electrolyte">
+    <div class="grp-head"><span class="idx">01</span><h2>電解質與酸鹼</h2><span class="en">Electrolytes &amp; Acid–Base</span></div>
+    <table class="ref">
+      <thead><tr><th>項目</th><th>一般人正常值</th><th>透析目標值</th><th>備註</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="param" data-label="項目"><span class="zh">血鉀</span><span class="abbr">Potassium, K⁺</span></td>
+          <td class="normal num" data-label="一般人正常值">3.5–5.0 mEq/L</td>
+          <td data-label="透析目標值"><span class="pill">4.0–5.5 mEq/L</span></td>
+          <td class="note" data-label="備註">理想 4.6–5.3；&lt;3.5 或 &gt;6.0 需立即處置</td>
+        </tr>
+        <tr>
+          <td class="param" data-label="項目"><span class="zh">重碳酸鹽</span><span class="abbr">Bicarbonate, HCO₃⁻</span></td>
+          <td class="normal num" data-label="一般人正常值">22–26 mEq/L</td>
+          <td data-label="透析目標值"><span class="pill">透析前 ≥22 mEq/L</span></td>
+          <td class="note" data-label="備註">避免長期 &gt;27，防代謝性鹼中毒</td>
+        </tr>
+        <tr>
+          <td class="param" data-label="項目"><span class="zh">血鈉</span><span class="abbr">Sodium, Na⁺</span></td>
+          <td class="normal num" data-label="一般人正常值">135–145 mEq/L</td>
+          <td data-label="透析目標值"><span class="pill">依透析液鈉個別化</span></td>
+          <td class="note" data-label="備註">無固定目標，依容積狀況調整</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="grp" id="mbd">
+    <div class="grp-head"><span class="idx">02</span><h2>骨礦物質代謝</h2><span class="en">CKD–MBD</span></div>
+    <table class="ref">
+      <thead><tr><th>項目</th><th>一般人正常值</th><th>透析目標值</th><th>備註</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="param" data-label="項目"><span class="zh">校正血鈣</span><span class="abbr">Corrected Ca</span></td>
+          <td class="normal num" data-label="一般人正常值">8.5–10.5 mg/dL</td>
+          <td data-label="透析目標值"><span class="pill">8.4–9.5 mg/dL</span></td>
+          <td class="note" data-label="備註">建議偏低值，避免高血鈣</td>
+        </tr>
+        <tr>
+          <td class="param" data-label="項目"><span class="zh">血磷</span><span class="abbr">Phosphate</span></td>
+          <td class="normal num" data-label="一般人正常值">2.5–4.5 mg/dL</td>
+          <td data-label="透析目標值"><span class="pill">3.5–5.5 mg/dL</span></td>
+          <td class="note" data-label="備註">—</td>
+        </tr>
+        <tr>
+          <td class="param" data-label="項目"><span class="zh">鈣磷乘積</span><span class="abbr">Ca × P Product</span></td>
+          <td class="normal num" data-label="一般人正常值">—</td>
+          <td data-label="透析目標值"><span class="pill">&lt; 55 mg²/dL²</span></td>
+          <td class="note" data-label="備註">超過易生血管鈣化風險</td>
+        </tr>
+        <tr>
+          <td class="param" data-label="項目"><span class="zh">全段副甲狀腺素</span><span class="abbr">iPTH</span></td>
+          <td class="normal num" data-label="一般人正常值">10–65 pg/mL</td>
+          <td data-label="透析目標值"><span class="pill">150–300 pg/mL</span></td>
+          <td class="note" data-label="備註">2017 KDIGO：可採檢驗上限 2–9 倍彈性區間</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="grp" id="anemia">
+    <div class="grp-head"><span class="idx">03</span><h2>貧血與鐵代謝</h2><span class="en">Anemia &amp; Iron · 2026 KDIGO</span></div>
+    <table class="ref">
+      <thead><tr><th>項目</th><th>一般人正常值</th><th>透析目標值</th><th>備註</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="param" data-label="項目"><span class="zh">血色素</span><span class="abbr">Hemoglobin, Hb</span></td>
+          <td class="normal num" data-label="一般人正常值">男 13.5–17.5／女 12.0–15.5 g/dL</td>
+          <td data-label="透析目標值"><span class="pill">上限 &lt; 11.5 g/dL</span></td>
+          <td class="note" data-label="備註">ESA 啟用時機 Hb ≤9.0–10.0</td>
+        </tr>
+        <tr>
+          <td class="param" data-label="項目"><span class="zh">儲鐵蛋白</span><span class="abbr">Ferritin</span></td>
+          <td class="normal num" data-label="一般人正常值">20–250 ng/mL</td>
+          <td data-label="透析目標值"><span class="pill">補鐵門檻 ≤500 ng/mL</span></td>
+          <td class="note" data-label="備註">須合併 TSAT 條件判斷</td>
+        </tr>
+        <tr>
+          <td class="param" data-label="項目"><span class="zh">運鐵飽和度</span><span class="abbr">TSAT</span></td>
+          <td class="normal num" data-label="一般人正常值">20–50 %</td>
+          <td data-label="透析目標值"><span class="pill">補鐵門檻 ≤30 %</span></td>
+          <td class="note" data-label="備註">血液透析病人適用</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="grp" id="adequacy">
+    <div class="grp-head"><span class="idx">04</span><h2>透析適足性</h2><span class="en">Dialysis Adequacy</span></div>
+    <table class="ref">
+      <thead><tr><th>項目</th><th>最低可接受</th><th>目標值</th><th>備註</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="param" data-label="項目"><span class="zh">單池 Kt/V</span><span class="abbr">spKt/V</span></td>
+          <td class="normal num" data-label="最低可接受">≥ 1.2</td>
+          <td data-label="目標值"><span class="pill">≥ 1.4 / 次</span></td>
+          <td class="note" data-label="備註">每週三次透析病人</td>
+        </tr>
+        <tr>
+          <td class="param" data-label="項目"><span class="zh">尿素下降率</span><span class="abbr">URR</span></td>
+          <td class="normal num" data-label="最低可接受">≥ 65 %</td>
+          <td data-label="目標值"><span class="pill">≥ 70 %</span></td>
+          <td class="note" data-label="備註">—</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="grp" id="nutrition">
+    <div class="grp-head"><span class="idx">05</span><h2>營養</h2><span class="en">Nutrition</span></div>
+    <table class="ref">
+      <thead><tr><th>項目</th><th>一般人正常值</th><th>透析建議值</th><th>備註</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="param" data-label="項目"><span class="zh">白蛋白</span><span class="abbr">Albumin</span></td>
+          <td class="normal num" data-label="一般人正常值">3.5–5.0 g/dL</td>
+          <td data-label="透析建議值"><span class="pill">≥ 3.8–4.0 g/dL</span></td>
+          <td class="note" data-label="備註">BCG 法；&lt;3.5 建議營養評估</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer>
+    <div class="updated">整理日期：2026 年 9 月</div>
+    <div>參考來源：NKF KDOQI Clinical Practice Guidelines for Bone Metabolism and Disease in CKD；KDIGO 2017 CKD-MBD Guideline Update；KDOQI Clinical Practice Guideline for Hemodialysis Adequacy: 2015 Update (AJKD)；KDIGO 2026 Clinical Practice Guideline for the Management of Anemia in CKD。各院區、各廠牌檢驗方法與單位換算可能略有差異，請以單位公告與醫囑為準。</div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var input = document.getElementById('q');
+  var count = document.getElementById('qcount');
+  var rows = Array.prototype.slice.call(document.querySelectorAll('table.ref tbody tr'));
+  var sections = Array.prototype.slice.call(document.querySelectorAll('section.grp'));
+  var total = rows.length;
+
+  function norm(s){ return (s || '').toLowerCase(); }
+
+  function apply(){
+    var v = norm(input.value.trim());
+    var shown = 0;
+    rows.forEach(function(r){
+      var text = norm(r.textContent);
+      var match = v === '' || text.indexOf(v) !== -1;
+      r.classList.toggle('hide', !match);
+      if (match) shown++;
+    });
+    sections.forEach(function(sec){
+      var visibleRows = sec.querySelectorAll('tbody tr:not(.hide)').length;
+      sec.style.display = visibleRows === 0 ? 'none' : '';
+    });
+    count.textContent = v === '' ? '' : ('符合 ' + shown + ' / ' + total + ' 項');
+  }
+
+  input.addEventListener('input', apply);
+})();
+</script>
+
+</body></html>
